@@ -1,0 +1,15 @@
+@charset "UTF-8";
+@import './normalize.css';
+
+/* global */
+html,
+body,
+#root,
+#root > div {
+  max-width: 100%;
+}
+
+/* semantic web .. */
+h1 {
+  display: none;
+}
