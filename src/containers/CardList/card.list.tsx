@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useCallback } from 'react';
+import { List } from 'react-virtualized';
 import { Card } from 'components';
 
 export interface IData {

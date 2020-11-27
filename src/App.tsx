@@ -1,67 +1,32 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { lazy, useState, Suspense } from 'react';
 
-import { CardList } from 'containers';
 import { Filter } from 'components';
+import { useFetch, useScroll } from 'hook';
 
-import xhrAPI from 'hook/useFetch';
+const CardList = lazy(() => import('containers/CardList/card.list'));
 
 function App() {
   const [element, setElement] = useState(null);
-  const [data, setData] = useState<any>([]);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [pageNum, setPageNum] = useState<number>(1);
 
-  let URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards`;
+  useScroll({ element, setPageNum });
 
-  const observer = useRef(
-    new IntersectionObserver(
-      entries => {
-        const first = entries[0];
-        if (first.isIntersecting) {
-          console.log(first);
-          console.log(first.isIntersecting);
-          setPageNumber(pageNumber + 1);
-        }
-      },
-      { threshold: 0.0, rootMargin: '0px', root: null },
-    ),
-  );
-
-  useEffect(() => {
-    const currentElement: any = element;
-    const currentObserver = observer.current;
-
-    if (currentElement) {
-      currentObserver.observe(currentElement);
-    }
-
-    return () => {
-      if (currentElement) {
-        currentObserver.unobserve(currentElement);
-      }
-    };
-  }, [element]);
-
-  useEffect(() => {
-    const getData = async () => {
-      await xhrAPI(URL)
-        .get(`/page_${pageNumber}.json`)
-        .then(res => setData([...data, ...res.data]));
-    };
-
-    console.log('pgnumb', pageNumber);
-
-    getData();
-  }, [pageNumber]);
+  const { response } = useFetch(URL, {}, pageNum);
 
   return (
     <>
-      <Filter />
+      <Suspense fallback="loading ....">
+        <Filter />
+        <h1>사진 피드 리스트</h1>
 
-      <div className="container">
-        <CardList data={data} target={setElement} />
-      </div>
+        <div className="container">
+          <CardList data={response} target={setElement} />
+        </div>
+      </Suspense>
     </>
   );
 }
+
+const URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards`;
 
 export default App;

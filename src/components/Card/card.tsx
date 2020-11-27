@@ -23,10 +23,8 @@ function Card({ feed, style, target }: Props) {
     setIsClick(!isClick);
   };
 
-  console.log(target);
-
   return (
-    <div className={cn('Card', style)}>
+    <div className={cn('Card', style)} ref={target}>
       <div>
         <img src={avatar} alt="profile_image" className="image avatar" />
         <span>{nickname}</span>
@@ -42,8 +40,8 @@ function Card({ feed, style, target }: Props) {
             className="image book"
           />
         </Button>
-        <div ref={target} />
       </div>
+      <div ref={target} />
     </div>
   );
 }

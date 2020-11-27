@@ -1,10 +1,25 @@
-import axios from 'axios';
+import { useState, useEffect } from 'react';
 
-const xhrAPI = (url: string, headers?: object) => {
-  return axios.create({
-    baseURL: url,
-    headers: headers || {},
-  });
-};
+import xhrAPI from 'lib/api';
 
-export default xhrAPI;
+function useFetch(url: string, options: any = {}, pageNum: number) {
+  const [response, setResponse] = useState<any>([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await xhrAPI(url).get(`/page_${pageNum}.json`, options);
+        setResponse([...response, ...res.data]);
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData();
+  }, [pageNum]);
+
+  return { response, error };
+}
+
+export default useFetch;
