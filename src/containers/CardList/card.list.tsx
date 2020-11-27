@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
-import { List } from 'react-virtualized';
+import React from 'react';
+
 import { Card } from 'components';
 
-export interface IData {
+export interface IFeed {
   id: number;
   image_url: string;
   nickname: string;
@@ -13,7 +13,7 @@ function CardList({ data, target }: any) {
   return (
     <>
       {data &&
-        data.map((feed: IData, i: number) => (
+        data.map((feed: IFeed, i: number) => (
           <Card feed={feed} key={i} style="item" target={target} />
         ))}
     </>

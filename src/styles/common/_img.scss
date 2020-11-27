@@ -7,13 +7,17 @@
   &.book {
     position: absolute;
     width: 28px;
-    bottom: 19px;
-    right: 12px;
+    bottom: 11px;
+    right: 10px;
   }
 
   &.feed {
     flex: auto;
     width: 100%;
     border-radius: 10px;
+  }
+
+  &.check {
+    padding-right: 0.5rem;
   }
 }

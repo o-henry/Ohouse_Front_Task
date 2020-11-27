@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 
 import { Button } from 'components';
-import { IData } from 'containers/CardList';
+import { IFeed } from 'containers/CardList';
 import { normal_btn, scrap_btn, avatar } from 'assets';
 
 interface Props {
   /* className에 따른 style*/
   style?: string;
   /* feed type */
-  feed: IData;
+  feed: IFeed;
 
   target: any;
 }
@@ -27,7 +27,7 @@ function Card({ feed, style, target }: Props) {
     <div className={cn('Card', style)} ref={target}>
       <div>
         <img src={avatar} alt="profile_image" className="image avatar" />
-        <span>{nickname}</span>
+        <span className="Card nickname">{nickname}</span>
       </div>
 
       <div className="Card book_mark">

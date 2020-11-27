@@ -7,6 +7,7 @@
 /* components */
 @import '../components/Button/button';
 @import '../components/Filter/filter';
+@import '../components/Card/card';
 
 /* containers */
 @import '../containers/CardList/card';
@@ -20,6 +21,7 @@ body,
 #root,
 #root > div {
   max-width: 100%;
+  font-family: AppleSDGothicNeo;
 }
 
 /* semantic web .. */

@@ -2,4 +2,11 @@
   &.book_mark {
     position: relative;
   }
+
+  &.nickname {
+    padding: 10px;
+    position: relative;
+    bottom: 0.9rem;
+    font-size: 15px;
+  }
 }
