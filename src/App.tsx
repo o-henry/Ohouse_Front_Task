@@ -1,4 +1,4 @@
-import React, { lazy, useState } from 'react';
+import React, { lazy, useState, Suspense } from 'react';
 
 import { Filter } from 'components';
 import { useFetch, useScroll } from 'hook';
@@ -9,18 +9,20 @@ function App() {
   const [element, setElement] = useState(null);
   const [pageNum, setPageNum] = useState(1);
   const [filterClick, setFilterClick] = useState(false);
-
   const { response } = useFetch(URL, {}, pageNum);
+
   useScroll({ element, setPageNum });
 
   return (
     <>
-      <h1>사진 피드 리스트</h1>
-      <Filter />
+      <Suspense fallback="Loading ...">
+        <h1>사진 피드 리스트</h1>
+        <Filter setFilterClick={setFilterClick} filterClick={filterClick} />
 
-      <div className="container">
-        <CardList data={response} target={setElement} />
-      </div>
+        <div className="container">
+          <CardList data={response} target={setElement} />
+        </div>
+      </Suspense>
     </>
   );
 }

@@ -14,7 +14,7 @@ const useScroll = ({ element, setPageNum }: Props) => {
           setPageNum((pageNum: number) => pageNum + 1);
         }
       },
-      { threshold: 0, rootMargin: '0px', root: null },
+      { threshold: 1, rootMargin: '0px' },
     ),
   );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Card } from 'components';
 
@@ -10,11 +10,20 @@ export interface IFeed {
 }
 
 function CardList({ data, target }: any) {
+  const [storage, setStorage] = useState([]);
+
   return (
     <>
       {data &&
         data.map((feed: IFeed, i: number) => (
-          <Card feed={feed} key={i} style="item" target={target} />
+          <Card
+            key={i}
+            style="item"
+            feed={feed}
+            target={target}
+            setStorage={setStorage}
+            storage={storage}
+          />
         ))}
     </>
   );

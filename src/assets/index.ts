@@ -1,3 +1,4 @@
+export { default as unchecked_btn } from './bt-unchecked.svg';
 export { default as check_btn } from './bt-checkbox-checked.svg';
 export { default as avatar } from './ic-avatar-cat.svg';
 export { default as scrap_btn } from './blue.svg';
