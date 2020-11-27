@@ -21,9 +21,8 @@ function App() {
 
   return (
     <>
-      <Filter handleClick={handleClick}>
-        <CardList data={data} />
-      </Filter>
+      <Filter handleClick={handleClick} />
+      <CardList data={data} />
       <Modal />
     </>
   );
@@ -35,7 +34,6 @@ function Filter({ children, handleClick }: any) {
   return (
     <>
       <button onClick={handleClick}>스크랩한 것만 보기</button>
-      {children}
     </>
   );
 }
