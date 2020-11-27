@@ -1,24 +1,10 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function useFetch(url: string, options: any = {}) {
-  const [response, setResponse] = useState();
-  const [error, setError] = useState(null);
+const xhrAPI = (url: string, headers?: object) => {
+  return axios.create({
+    baseURL: url,
+    headers: headers || {},
+  });
+};
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(url, options);
-        setResponse(res.data);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return { response, error };
-}
-
-export default useFetch;
+export default xhrAPI;

@@ -9,12 +9,12 @@ export interface IData {
   profile_image_url: string;
 }
 
-function CardList({ data }: any) {
+function CardList({ data, target }: any) {
   return (
     <>
-      {data.response &&
-        data.response.map((feed: IData, i: number) => (
-          <Card feed={feed} key={i} />
+      {data &&
+        data.map((feed: IData, i: number) => (
+          <Card feed={feed} key={i} style="item" target={target} />
         ))}
     </>
   );

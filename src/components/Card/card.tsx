@@ -10,9 +10,11 @@ interface Props {
   style?: string;
   /* feed type */
   feed: IData;
+
+  target: any;
 }
 
-function Card({ feed, style }: Props) {
+function Card({ feed, style, target }: Props) {
   const { image_url, nickname } = feed;
 
   const [isClick, setIsClick] = useState(false);
@@ -21,14 +23,27 @@ function Card({ feed, style }: Props) {
     setIsClick(!isClick);
   };
 
+  console.log(target);
+
   return (
     <div className={cn('Card', style)}>
-      <img src={avatar} alt="profile_image" />
-      <span>{nickname}</span>
-      <img src={image_url} alt="feed_image" />
-      <Button onClick={handleClick}>
-        <img src={isClick ? scrap_btn : normal_btn} alt="scrap_btn" />
-      </Button>
+      <div>
+        <img src={avatar} alt="profile_image" className="image avatar" />
+        <span>{nickname}</span>
+      </div>
+
+      <div className="Card book_mark">
+        <img src={image_url} alt="feed_image" className="image feed" />
+
+        <Button style="book_mark" onClick={handleClick}>
+          <img
+            src={isClick ? scrap_btn : normal_btn}
+            alt="scrap_btn"
+            className="image book"
+          />
+        </Button>
+        <div ref={target} />
+      </div>
     </div>
   );
 }
