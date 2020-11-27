@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function useFetch<T>(url: string, options: any = {}) {
-  const [response, setResponse] = useState<T | null>();
+function useFetch(url: string, options: any = {}) {
+  const [response, setResponse] = useState();
   const [error, setError] = useState(null);
 
   useEffect(() => {

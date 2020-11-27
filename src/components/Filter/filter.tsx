@@ -9,11 +9,9 @@ interface Props {
 
 function Filter({ style }: Props): React.ReactElement {
   return (
-    <>
-      <div className={cn('Filter', style)}>
-        <Button>스크랩한 것만 보기</Button>
-      </div>
-    </>
+    <div className={cn('Filter', style)}>
+      <Button>스크랩한 것만 보기</Button>
+    </div>
   );
 }
 

@@ -1,6 +1,13 @@
 @charset "UTF-8";
 @import './normalize.css';
 
+/* components */
+@import '../components/Button/button';
+@import '../components/Filter/filter';
+
+/* containers */
+@import '../containers/CardList/cardlist';
+
 /* global */
 html,
 body,
