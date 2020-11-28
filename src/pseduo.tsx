@@ -1,49 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Blueprint = () => {
-  const [storage, setStorage] = useState(DUMMY);
+  // const [selected, setSelected] = useState(false);
+  DUMMY.forEach((ele: any) => (ele['selected'] = false));
+  const [data, setData] = useState(DUMMY);
 
-  return (
-    <>
-      <CardList data={storage} setStorage={setStorage} />
-    </>
-  );
-};
+  console.log(data);
 
-const CardList = ({ data, setStorage }: any) => {
-  return (
-    <>
-      {data.map((feed: any, id: number) => (
-        <Card key={id} feed={feed} setStorage={setStorage} />
-      ))}
-    </>
-  );
-};
-
-const Card = ({ feed, setStorage }: any) => {
-  const handleClick = (e: any) => {
-    console.log(e.currentTarget);
-    console.log(e.currentTarget.id == feed.id);
-    if (e.currentTarget.id == feed.id) {
-      setStorage((storage: any) => [...storage, { selected: true, ...feed }]);
-    }
-
-    console.log(feed);
+  const onSelect = (id: any) => {
+    setData(
+      data.map((feed: any) =>
+        feed.id === id ? { ...feed, selected: !feed.selected } : feed,
+      ),
+    );
   };
 
   return (
     <div>
-      <div>{feed.nickname}</div>
-      <button
-        id={feed.id}
-        onClick={handleClick}
-        style={{ backgroundColor: feed.selected ? 'green' : 'red' }}
-      >
-        스크랩
-      </button>
+      <Filter />
+      {data.map((feed: any, idx: any) => (
+        <Card key={idx} feed={feed} onSelect={onSelect} />
+      ))}
     </div>
   );
+
+  function Filter() {
+    return (
+      <>
+        <button>show only scraped</button>
+      </>
+    );
+  }
+
+  function Card({ feed, onSelect }: any) {
+    return (
+      <>
+        <div>{feed.nickname}</div>
+        <button
+          style={{ backgroundColor: feed.selected ? 'green' : 'red' }}
+          onClick={() => onSelect(feed.id)}
+        >
+          스크랩
+        </button>
+      </>
+    );
+  }
 };
+
+export default Blueprint;
 
 const DUMMY = [
   {
@@ -77,5 +81,3 @@ const DUMMY = [
     profile_image_url: 'hi',
   },
 ];
-
-export default Blueprint;
