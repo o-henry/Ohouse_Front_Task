@@ -5,8 +5,6 @@ const Blueprint = () => {
   DUMMY.forEach((ele: any) => (ele['selected'] = false));
   const [data, setData] = useState(DUMMY);
 
-  console.log(data);
-
   const onSelect = (id: any) => {
     setData(
       data.map((feed: any) =>

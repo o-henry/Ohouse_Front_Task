@@ -7,21 +7,21 @@ import { check_btn, unchecked_btn } from 'assets';
 interface Props {
   style?: string;
 
-  setFilterClick: any;
+  handleClick: any;
 
-  filterClick: any;
+  isClick: any;
+
+  onFilter: any;
 }
 
-function Filter({
-  style,
-  setFilterClick,
-  filterClick,
-}: Props): React.ReactElement {
+function Filter({ style, ...props }: Props): React.ReactElement {
+  const { handleClick, isClick, onFilter } = props;
+
   return (
     <div className={cn('Filter', style)}>
-      <Button onClick={() => setFilterClick(!filterClick)}>
+      <Button onClick={() => handleClick(!isClick)}>
         <img
-          src={filterClick ? check_btn : unchecked_btn}
+          src={isClick ? check_btn : unchecked_btn}
           alt="check_btn"
           className="image check"
         />
@@ -30,5 +30,9 @@ function Filter({
     </div>
   );
 }
+
+Filter.defaultProps = {
+  style: '',
+};
 
 export default React.memo(Filter);

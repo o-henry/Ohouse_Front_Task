@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 
 import xhrAPI from 'lib/api';
 
-function useFetch(url: string, options: any = {}, pageNum: number) {
+// 의존성 수정 필요
+function useFetch(url: string, pageNum: number, options?: any) {
   const [response, setResponse] = useState<any>([]);
   const [error, setError] = useState(null);
 
@@ -10,6 +11,9 @@ function useFetch(url: string, options: any = {}, pageNum: number) {
     const fetchData = async () => {
       try {
         const res = await xhrAPI(url).get(`/page_${pageNum}.json`, options);
+
+        res.data.forEach((element: any) => (element['selected'] = false));
+
         setResponse([...response, ...res.data]);
       } catch (error) {
         setError(error);
@@ -19,7 +23,7 @@ function useFetch(url: string, options: any = {}, pageNum: number) {
     fetchData();
   }, [pageNum]);
 
-  return { response, error };
+  return { response, error, setResponse };
 }
 
 export default useFetch;
