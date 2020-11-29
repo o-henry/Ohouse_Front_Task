@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useLocalStorage(defaultValue: any, key: any) {
+function useLocalStorage(defaultValue: boolean, key: any) {
   const [value, setValue] = useState(() => {
     const stickyValue = window.localStorage.getItem(key);
 

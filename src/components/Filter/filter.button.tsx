@@ -7,7 +7,7 @@ import { check_btn, unchecked_btn } from 'assets';
 interface Props {
   /* className에 따른 style*/
   style?: string;
-  /* handle button event */
+  /* handle button event by state*/
   handleClick: any;
   /* click state */
   isClick: boolean;
