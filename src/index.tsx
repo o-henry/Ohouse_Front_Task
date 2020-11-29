@@ -7,8 +7,8 @@ import Blueprint from './pseduo';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <Blueprint />
+    <App />
+    {/* <Blueprint /> */}
   </React.StrictMode>,
   document.getElementById('root'),
 );

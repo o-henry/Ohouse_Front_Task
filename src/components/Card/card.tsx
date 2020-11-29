@@ -14,10 +14,14 @@ interface Props {
   target: any;
   /* handle scrap button */
   onSelect: any;
+  /* filter click */
+  isfilterClick: boolean;
+
+  storage: any;
 }
 
 function Card({ feed, ...props }: Props) {
-  const { style, onSelect, target } = props;
+  const { style, onSelect, target, isfilterClick, storage } = props;
   const { image_url, nickname } = feed;
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Filter, Card } from 'components';
-import { useFetch, useScroll } from 'hook';
+import { useFetch, useLocalStorage, useScroll } from 'hook';
 
 export interface IFeed {
   id: number;
@@ -15,8 +15,9 @@ function PhotoList() {
   const [element, setElement] = useState(null);
   const [isfilterClick, setFilterClick] = useState(false);
   const [pageNum, setPageNum] = useState(1);
+  const [storage, setStorage] = useLocalStorage('', 'scraped');
 
-  const { response, setResponse, error } = useFetch(URL, pageNum);
+  const { response, error, setResponse } = useFetch(URL, pageNum);
 
   if (error) {
     console.log(error);
@@ -25,11 +26,12 @@ function PhotoList() {
   useScroll({ element, setPageNum });
 
   const onSelect = (id: number) => {
-    setResponse(
-      response.map((feed: IFeed) =>
-        feed.id === id ? { ...feed, selected: !feed.selected } : feed,
-      ),
-    );
+    const data = [...response];
+    const itemIdx = data.findIndex(item => item.id === id);
+    data[itemIdx].selected = !data[itemIdx].selected;
+    setResponse(data);
+
+    setStorage(response.filter((data: any) => data.selected));
   };
 
   const onFilter = () => {};
@@ -41,6 +43,8 @@ function PhotoList() {
         handleClick={setFilterClick}
         isClick={isfilterClick}
         onFilter={onFilter}
+        storage={storage}
+        onSelect={onSelect}
       />
       {response &&
         response.map((feed: any, idx: number) => (
@@ -50,6 +54,8 @@ function PhotoList() {
             feed={feed}
             target={setElement}
             onSelect={onSelect}
+            isfilterClick={isfilterClick}
+            storage={storage}
           />
         ))}
     </>
