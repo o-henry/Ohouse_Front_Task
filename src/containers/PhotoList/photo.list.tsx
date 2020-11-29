@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { Filter, Card } from 'components';
-import { useFetch, useLocalStorage, useScroll } from 'hook';
+import { useFetch, useScroll } from 'hook';
 
 export interface IFeed {
   id: number;
@@ -15,9 +15,8 @@ function PhotoList() {
   const [element, setElement] = useState(null);
   const [isfilterClick, setFilterClick] = useState(false);
   const [pageNum, setPageNum] = useState(1);
-  const [storage, setStorage] = useLocalStorage('', 'scraped');
 
-  const { response, error, setResponse } = useFetch(URL, pageNum);
+  const { response, error } = useFetch(URL, pageNum);
 
   if (error) {
     console.log(error);
@@ -25,48 +24,22 @@ function PhotoList() {
 
   useScroll({ element, setPageNum });
 
-  const onSelect = (id: number) => {
-    const data = [...response];
-    const itemIdx = data.findIndex(item => item.id === id);
-    data[itemIdx].selected = !data[itemIdx].selected;
-
-    setResponse(data);
-    setStorage(response.filter((data: any) => data.selected));
-  };
-
   return (
     <>
       <h1>사진 피드 리스트</h1>
       <Filter handleClick={setFilterClick} isClick={isfilterClick} />
-
-      {storage &&
-        isfilterClick &&
-        storage.map((feed: any, idx: number) => (
+      {response &&
+        response.map((feed: any) => (
           <Card
-            key={idx}
             style="item"
+            key={feed.id}
             feed={feed}
-            onSelect={onSelect}
-            storage={storage}
-          />
-        ))}
-
-      {(!storage || !isfilterClick) &&
-        response &&
-        response.map((feed: any, idx: number) => (
-          <Card
-            key={idx}
-            style="item"
-            feed={feed}
+            isfilterClick={isfilterClick}
             target={setElement}
-            onSelect={onSelect}
-            storage={storage}
-            selected={feed.selected}
           />
         ))}
     </>
   );
-  // }
 }
 
 const URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards`;

@@ -12,8 +12,6 @@ function useFetch(url: string, pageNum: number, options?: any) {
       try {
         const res = await xhrAPI(url).get(`/page_${pageNum}.json`, options);
 
-        res.data.forEach((element: any) => (element['selected'] = false));
-
         setResponse([...response, ...res.data]);
       } catch (error) {
         setError(error);
@@ -23,7 +21,7 @@ function useFetch(url: string, pageNum: number, options?: any) {
     fetchData();
   }, [pageNum]);
 
-  return { response, error, setResponse };
+  return { response, error };
 }
 
 export default useFetch;
