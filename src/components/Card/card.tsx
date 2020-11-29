@@ -2,9 +2,9 @@ import React from 'react';
 import cn from 'classnames';
 
 import { Button } from 'components';
+import { useLocalStorage } from 'hook';
 import { IFeed } from 'containers/PhotoList';
 import { normal_btn, scrap_btn, avatar } from 'assets';
-import { useLocalStorage } from 'hook';
 
 interface Props {
   /* className에 따른 style*/
@@ -14,18 +14,18 @@ interface Props {
   /* scroll target */
   target: any;
   /* filter state */
-  isfilterClick?: boolean;
+  isClick?: boolean;
 }
 
 function Card({ feed, ...props }: Props) {
   const [storage, setStorage] = useLocalStorage(false, feed.id);
 
-  const { style, target, isfilterClick } = props;
+  const { style, target, isClick } = props;
   const { image_url, nickname } = feed;
 
   return (
     <>
-      {isfilterClick && storage && (
+      {isClick && storage && (
         <div className={cn('Card', style)}>
           <div>
             <img className="image avatar" src={avatar} alt="profile_image" />
@@ -46,7 +46,7 @@ function Card({ feed, ...props }: Props) {
         </div>
       )}
 
-      {!isfilterClick && (
+      {!isClick && (
         <div className={cn('Card', style)}>
           <div>
             <img className="image avatar" src={avatar} alt="profile_image" />

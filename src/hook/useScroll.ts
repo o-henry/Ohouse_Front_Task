@@ -2,16 +2,16 @@ import { useEffect, useRef } from 'react';
 
 interface Props {
   element: Element | null;
-  setPageNum: any;
+  setPage: any;
 }
 
-const useScroll = ({ element, setPageNum }: Props) => {
+const useScroll = ({ element, setPage }: Props) => {
   const observer = useRef(
     new IntersectionObserver(
       entries => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-          setPageNum((pageNum: number) => pageNum + 1);
+          setPage((page: number) => page + 1);
         }
       },
       { threshold: 1, rootMargin: '0px', root: null },

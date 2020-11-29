@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 
-import { Filter, Card } from 'components';
+import { Filter } from 'components';
 import { useFetch, useScroll } from 'hook';
+
+const Card = lazy(() => import('components/Card/card'));
 
 export interface IFeed {
   id: number;
@@ -12,36 +14,42 @@ export interface IFeed {
 }
 
 function PhotoList() {
+  const [isClick, setIsClick] = useState(false);
   const [element, setElement] = useState(null);
-  const [isfilterClick, setFilterClick] = useState(false);
-  const [pageNum, setPageNum] = useState(1);
+  const [page, setPage] = useState(1);
 
-  const { response, error } = useFetch(URL, pageNum);
+  const { response, error } = useFetch(URL, `${page}.json`);
 
   if (error) {
     console.log(error);
   }
 
-  useScroll({ element, setPageNum });
+  useScroll({ element, setPage });
 
   return (
     <>
-      <h1>사진 피드 리스트</h1>
-      <Filter handleClick={setFilterClick} isClick={isfilterClick} />
+      <Filter handleClick={setIsClick} isClick={isClick} />
+
       {response &&
-        response.map((feed: any) => (
-          <Card
-            style="item"
-            key={feed.id}
-            feed={feed}
-            isfilterClick={isfilterClick}
-            target={setElement}
-          />
+        response.map((feed: IFeed, idx: number) => (
+          <Suspense fallback="Loading ..." key={idx}>
+            <Card
+              style="item"
+              key={feed.id}
+              feed={feed}
+              isClick={isClick}
+              target={setElement}
+            />
+          </Suspense>
         ))}
     </>
   );
 }
 
-const URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards`;
+const URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards/page_`;
 
-export default PhotoList;
+function areEqual(prevProps: any, nextProps: any) {
+  return prevProps.id === nextProps.id;
+}
+
+export default React.memo(PhotoList, areEqual);

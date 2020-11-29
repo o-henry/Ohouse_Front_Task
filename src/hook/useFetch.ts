@@ -1,16 +1,22 @@
 import { useState, useEffect } from 'react';
 
-import xhrAPI from 'lib/api';
+import axios, { AxiosAdapter } from 'axios';
+import { cacheAdapterEnhancer } from 'axios-extensions';
 
-// 의존성 수정 필요
-function useFetch(url: string, pageNum: number, options?: any) {
+const instance = axios.create({
+  baseURL: '/',
+  headers: { 'Cache-Control': 'no-cache' },
+  adapter: cacheAdapterEnhancer(axios.defaults.adapter as AxiosAdapter),
+});
+
+function useFetch(url: string, pageNum?: string) {
   const [response, setResponse] = useState<any>([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await xhrAPI(url).get(`/page_${pageNum}.json`, options);
+        const res = await instance.get(url + pageNum);
 
         setResponse([...response, ...res.data]);
       } catch (error) {

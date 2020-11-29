@@ -5,10 +5,11 @@ import { Button } from 'components';
 import { check_btn, unchecked_btn } from 'assets';
 
 interface Props {
+  /* className에 따른 style*/
   style?: string;
-
+  /* handle button event */
   handleClick: any;
-
+  /* click state */
   isClick: boolean;
 }
 
@@ -19,12 +20,12 @@ function Filter({ style, ...props }: Props): React.ReactElement {
     <div className={cn('Filter', style)}>
       <Button onClick={() => handleClick(!isClick)}>
         <img
-          src={isClick ? check_btn : unchecked_btn}
-          alt="check_btn"
           className="image check"
+          alt="check_btn"
+          src={isClick ? check_btn : unchecked_btn}
         />
       </Button>
-      스크랩한 것만 보기
+      <div className="text"> 스크랩한 것만 보기 </div>
     </div>
   );
 }

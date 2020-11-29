@@ -1,46 +1,42 @@
-# Getting Started with Create React App
+## 오늘의 집 과제
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 구조
 
-## Available Scripts
+```
+.
+├── src
+│   ├── App.tsx
+│   ├── assets
+│   ├── components
+│   │   ├── Button
+│   │   ├── Card
+│   │   ├── Filter
+│   │   └── index.ts
+│   ├── containers
+│   │   ├── PhotoList
+│   │   └── index.ts
+│   ├── hook
+│   ├── index.tsx
+└── └── styles
 
-In the project directory, you can run:
+<App>
+    <PhotoList>
+        <Filter />
+        <Card />
+    </PhotoList>
+</App>
+```
 
-### `yarn start`
+- Controller의 경우 container의 PhotoList 컴포넌트 에서 최대한 관리할 수 있도록 구현하였으며, Card 나 Filter의 경우 Presentaition과 Container를 구분할 필요가 없어서 함께 사용했습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 기능
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- 스크롤 에 따른 이미지 요청
+- 스크랩 및 새로고침 시 데이터 유지
 
-### `yarn test`
+### 사용 기술 스택
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Typescript
+- React
+- node-sass
+- axios

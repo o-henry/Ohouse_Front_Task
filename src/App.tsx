@@ -1,15 +1,15 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 
-const PhotoList = lazy(() => import('containers/PhotoList/photo.list'));
+import { PhotoList } from 'containers';
 
 function App() {
   return (
     <>
-      <Suspense fallback="Loading ...">
-        <div className="container">
-          <PhotoList />
-        </div>
-      </Suspense>
+      <h1>사진 피드 리스트</h1>
+
+      <div className="container">
+        <PhotoList />
+      </div>
     </>
   );
 }
