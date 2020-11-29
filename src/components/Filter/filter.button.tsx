@@ -1,26 +1,19 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { Button, Card } from 'components';
+import { Button } from 'components';
 import { check_btn, unchecked_btn } from 'assets';
-import { useLocalStorage } from 'hook';
 
 interface Props {
   style?: string;
 
   handleClick: any;
 
-  isClick: any;
-
-  onFilter: any;
-
-  storage: any;
-
-  onSelect: any;
+  isClick: boolean;
 }
 
 function Filter({ style, ...props }: Props): React.ReactElement {
-  const { handleClick, isClick, onFilter, storage, onSelect } = props;
+  const { handleClick, isClick } = props;
 
   return (
     <div className={cn('Filter', style)}>

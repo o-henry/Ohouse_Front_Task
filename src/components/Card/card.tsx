@@ -11,18 +11,20 @@ interface Props {
   /* feed type */
   feed: IFeed;
   /* scroll target */
-  target: any;
+  target?: any;
   /* handle scrap button */
-  onSelect: any;
-  /* filter click */
-  isfilterClick: boolean;
+  onSelect?: any;
 
-  storage: any;
+  storage?: any;
+
+  selected?: boolean;
 }
 
 function Card({ feed, ...props }: Props) {
-  const { style, onSelect, target, isfilterClick, storage } = props;
+  const { style, onSelect, target, storage, selected } = props;
   const { image_url, nickname } = feed;
+
+  console.log('storage --', storage);
 
   return (
     <div className={cn('Card', style)} ref={target}>
@@ -38,7 +40,7 @@ function Card({ feed, ...props }: Props) {
           <img
             className="image book"
             alt="scrap_btn"
-            src={feed.selected ? scrap_btn : normal_btn}
+            src={storage[0].id == feed.id ? scrap_btn : normal_btn}
           />
         </Button>
       </div>

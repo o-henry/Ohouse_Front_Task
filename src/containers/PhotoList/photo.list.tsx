@@ -29,24 +29,30 @@ function PhotoList() {
     const data = [...response];
     const itemIdx = data.findIndex(item => item.id === id);
     data[itemIdx].selected = !data[itemIdx].selected;
-    setResponse(data);
 
+    setResponse(data);
     setStorage(response.filter((data: any) => data.selected));
   };
-
-  const onFilter = () => {};
 
   return (
     <>
       <h1>사진 피드 리스트</h1>
-      <Filter
-        handleClick={setFilterClick}
-        isClick={isfilterClick}
-        onFilter={onFilter}
-        storage={storage}
-        onSelect={onSelect}
-      />
-      {response &&
+      <Filter handleClick={setFilterClick} isClick={isfilterClick} />
+
+      {storage &&
+        isfilterClick &&
+        storage.map((feed: any, idx: number) => (
+          <Card
+            key={idx}
+            style="item"
+            feed={feed}
+            onSelect={onSelect}
+            storage={storage}
+          />
+        ))}
+
+      {(!storage || !isfilterClick) &&
+        response &&
         response.map((feed: any, idx: number) => (
           <Card
             key={idx}
@@ -54,12 +60,13 @@ function PhotoList() {
             feed={feed}
             target={setElement}
             onSelect={onSelect}
-            isfilterClick={isfilterClick}
             storage={storage}
+            selected={feed.selected}
           />
         ))}
     </>
   );
+  // }
 }
 
 const URL = `https://bucketplace-coding-test.s3.amazonaws.com/cards`;

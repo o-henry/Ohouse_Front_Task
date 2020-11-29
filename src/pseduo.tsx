@@ -31,62 +31,53 @@ const Blueprint = () => {
 
   const [isClick, setIsClick] = useState(false);
 
-  const [storage, setStorage] = useLocalStorage('', 'tester');
   const [items, setItems] = useState<any>(DUMMY);
 
-  const onSelect = (id: any) => {
-    const data = [...items];
-    const itemIdx = data.findIndex(item => item.id === id);
-    data[itemIdx].selected = !data[itemIdx].selected;
-    setItems(data);
-
-    setStorage(items.filter((item: any) => item.selected));
-    // window.localStorage.setItem(
-    //   'temp',
-    //   JSON.stringify(items.filter((item: any) => item.selected)),
-    // );
-  };
-
-  console.log('items', items);
+  console.log(isClick);
 
   return (
     <div>
       <Filter handleClick={setIsClick} isClick={isClick} />
       {items.map((feed: any, idx: any) => {
-        return (
-          <Card
-            key={feed.id}
-            feed={feed}
-            onSelect={onSelect}
-            storage={storage}
-          />
-        );
+        return <Card key={feed.id} feed={feed} isClick={isClick} />;
       })}
     </div>
   );
 
-  function Card({ feed, onSelect, storage }: any) {
-    // const getData = window.localStorage.getItem('temp');
+  function Card({ feed, isClick }: any) {
+    const [storage, setStorage] = useLocalStorage(0, feed.id);
 
-    // getData && JSON.parse(getData)
-    // getData.map()
-
+    console.log('storate', storage, feed);
     return (
       <>
-        <div>
-          <div>{feed.nickname}</div>
-          <button
-            id={feed.id}
-            style={{
-              backgroundColor: storage.forEach((ele: any) =>
-                ele.selected ? 'red' : 'green',
-              ),
-            }}
-            onClick={() => onSelect(feed.id)}
-          >
-            스크랩
-          </button>
-        </div>
+        {isClick && storage && (
+          <div>
+            <div>{feed.nickname}</div>
+            <button
+              id={feed.id}
+              style={{
+                backgroundColor: storage ? 'green' : 'red',
+              }}
+              onClick={() => setStorage(!storage)}
+            >
+              스크랩
+            </button>
+          </div>
+        )}
+        {!isClick && (
+          <div>
+            <div>{feed.nickname}</div>
+            <button
+              id={feed.id}
+              style={{
+                backgroundColor: storage ? 'green' : 'red',
+              }}
+              onClick={() => setStorage(!storage)}
+            >
+              스크랩
+            </button>
+          </div>
+        )}
       </>
     );
   }
