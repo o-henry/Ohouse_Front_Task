@@ -7,8 +7,6 @@ function useLocalStorage(defaultValue: any, key: any) {
     return stickyValue !== null ? JSON.parse(stickyValue) : defaultValue;
   });
 
-  console.log('e', key);
-
   useEffect(() => {
     window.localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
