@@ -37,7 +37,9 @@
 
 ```
 
-- 비즈니스 로직의 경우 container의 PhotoList 컴포넌트 에서 최대한 관리할 수 있도록 구현하였으며, Card 나 Filter의 경우 Presentaition과 Container를 구분할 필요가 없어서 함께 사용했습니다.
+비즈니스 로직의 경우 container의 PhotoList 컴포넌트 에서 최대한 관리할 수 있도록 구현하였으며, 
+
+Card 나 Filter의 경우 Presentaition과 Container를 구분 없이 함께 사용했습니다.
 
 ---
 
@@ -55,3 +57,16 @@
 - React
 - node-sass
 - axios
+
+---
+
+### 설치
+`npm i`
+
+`npm start`
+
+> 에러 발생시
+
+`npm i --only=dev` (devDependencies만 따로 설치)
+
+vscode 에서 tsconfig.json 'jsx': 'react-jsx'에러 발생시 `cmd + shift + p` `Select Typescript Version` -> `use Workspace version`
