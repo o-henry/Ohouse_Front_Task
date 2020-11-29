@@ -3,7 +3,6 @@
 ### 구조
 
 ```
-.
 ├── src
 │   ├── App.tsx
 │   ├── assets
@@ -19,20 +18,36 @@
 │   ├── index.tsx
 └── └── styles
 
+..대략적인 구조 ( 아래처럼 컴포넌트 합성을 사용하지는 않았습니다. )
 <App>
     <PhotoList>
-        <Filter />
-        <Card />
+        <Filter>
+            <Button>
+                .
+                .
+        </Filter>
+        <Card>
+            <Button>
+                .
+                .
+        </Card>
     </PhotoList>
 </App>
+
+
 ```
 
-- Controller의 경우 container의 PhotoList 컴포넌트 에서 최대한 관리할 수 있도록 구현하였으며, Card 나 Filter의 경우 Presentaition과 Container를 구분할 필요가 없어서 함께 사용했습니다.
+- 비즈니스 로직의 경우 container의 PhotoList 컴포넌트 에서 최대한 관리할 수 있도록 구현하였으며, Card 나 Filter의 경우 Presentaition과 Container를 구분할 필요가 없어서 함께 사용했습니다.
+
+---
 
 ### 기능
 
 - 스크롤 에 따른 이미지 요청
+- 스크랩 버튼 색상 변경
 - 스크랩 및 새로고침 시 데이터 유지
+
+---
 
 ### 사용 기술 스택
 
